@@ -21,6 +21,8 @@ async function signup(username,password, email) {
     })
     .then(res => {
       return res.data
+  }).catch(err => {
+    return err
   })
 }
 

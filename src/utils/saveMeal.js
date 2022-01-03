@@ -1,12 +1,13 @@
 import axios from "axios";
 
 
-async function saveMeal(meal,calories, userId) {
+async function saveMeal(meal,calories, foodDiaryId) {
   return axios
     .post('http://localhost:4000/meal',
     {
       name: meal,
-      calories: calories
+      calories: calories,
+      FoodDiaryId:foodDiaryId
     })
     .then(res => {
       return res.data

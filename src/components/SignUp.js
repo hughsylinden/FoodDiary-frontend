@@ -8,20 +8,22 @@ function SignUp() {
     fields: { username: "", password: "" },
   };
   const [fields, setFields] = useState(initialState.fields);
+  const { user } = useContext(UserContext);
 
   const handleFieldChange = (e) => {
     e.preventDefault();
     setFields({ ...fields, [e.target.name]: e.target.value });
   };
 
-  function handleCreateUser(e){
+  async function handleCreateUser(e){
     e.preventDefault()
-    signup(fields.username,fields.password);
-    console.log(fields)
-  }
+     signup(fields.username,fields.password).then(res => {
 
-  
-  const { user } = useContext(UserContext);
+      console.log(res.toJSON())
+    }).catch(err=>{
+      console.log(err.toJSON())
+    });
+  }
   return (
     <div>
       <h1>Sign Up</h1>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import SignIn from "./SignIn"
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom"
-import getFoodDiaryByUser from "../utils/getDiaries"
+import {getFoodDiaryByUser} from "../utils/getDiaries"
 import addFoodDiary from "../utils/addFoodDiary"
 
 function LandingPage() {  
