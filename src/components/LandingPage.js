@@ -61,9 +61,10 @@ function LandingPage() {
       {
         foodDiary.map(fd=>
           <Link
-              to={`/fooddiary/${fd.id}`}
+              to={`/FoodDiary/${fd.id}`}
               type="button"
               id={fd.id}
+              key={fd.id}
             >
               {fd.name}<br/>
           </Link>

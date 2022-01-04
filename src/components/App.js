@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from './LandingPage';
 import SignIn from "./SignIn";
 import SignUp from "./SignUp"
+import NavBar from "./NavBar"
 import FoodDiary from "./FoodDiary"
 import { UserProvider } from "../contexts/UserContext";
 import '../styles/App.css';
@@ -12,6 +13,7 @@ function App({match}) {
     <Router>
       <div className="App">
         <UserProvider>
+          <NavBar/>
           <Routes>
             <Route exact path="/" element={<LandingPage />} />
             <Route path="/fooddiary/:id" element={<FoodDiary/>} />
