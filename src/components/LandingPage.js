@@ -6,7 +6,7 @@ import {getFoodDiaryByUser} from "../utils/getDiaries"
 import addFoodDiary from "../utils/addFoodDiary"
 
 function LandingPage() {  
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const initialState = {
     fields: { username: "", password: "" },
   };
@@ -24,11 +24,7 @@ function LandingPage() {
     e.preventDefault();
     setFields({ ...fields, [e.target.name]: e.target.value });
   };
-
-  async function logout(){
-    setUser("")
-  }
-
+  
   async function viewNewDiaryInputs(){
     setShowDiaryInputs(!showDiaryInputs)
   }
@@ -70,8 +66,6 @@ function LandingPage() {
           </Link>
         )
       }
-      <br/>
-      <button onClick={logout}>log out</button> 
       </div>
       :       
       <SignIn />}

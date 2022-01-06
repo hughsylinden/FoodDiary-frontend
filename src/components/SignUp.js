@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { signup } from "../utils/auth";
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
   const initialState = {
@@ -9,6 +9,7 @@ function SignUp() {
   };
   const [fields, setFields] = useState(initialState.fields);
   const { user } = useContext(UserContext);
+  let navigate = useNavigate();
 
   const handleFieldChange = (e) => {
     e.preventDefault();
@@ -19,10 +20,10 @@ function SignUp() {
     e.preventDefault()
      signup(fields.username,fields.password).then(res => {
 
-      console.log(res.toJSON())
-    }).catch(err=>{
-      console.log(err.toJSON())
-    });
+      if(res.username){
+        navigate("/signin");
+      }
+    })
   }
   return (
     <div>
