@@ -1,18 +1,25 @@
-import React from 'react'
-import moment from 'moment'
+import React from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
 
-function Meal({name,calories,time}) {
-  const d = moment(time).format('DD/MM/YYYY')
-  const t = moment(time).format('HH:mm:ss')
+function Meal({ name, calories, datetime }) {
+  const date = moment(datetime).format("DD/MM/YYYY");
+  const time = moment(datetime).format("HH:mm:ss");
   return (
     <div>
       <div>{name}</div>
       <div>{calories}</div>
-      <div>{d}</div>      
-      <div>{t}</div>      
-      <br/>
+      <div>{date}</div>
+      <div>{time}</div>
+      <br />
     </div>
-  )
+  );
 }
 
-export default Meal
+Meal.propTypes = {
+  name: PropTypes.string.isRequired,
+  calories: PropTypes.string.isRequired,
+  datetime: PropTypes.string.isRequired,
+};
+
+export default Meal;
