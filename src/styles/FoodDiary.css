@@ -1,0 +1,13 @@
+.meal-calendar {
+  display: flex;
+  justify-content: center;
+}
+
+.meal-calendar-month {
+  border: solid 1px black;
+  padding: 10px;
+}
+
+.meal-calendar-month:hover {
+  background: grey;
+}

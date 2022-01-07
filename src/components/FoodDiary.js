@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import saveMeal from "../utils/saveMeal";
 import getMeals from "../utils/getMeals";
 import Meal from "./Meal";
+import DateSelector from "./DateSelector";
+import "../styles/FoodDiary.css";
 
 function FoodDiary() {
   const initialState = {
@@ -15,7 +17,9 @@ function FoodDiary() {
   };
   const [fields, setFields] = useState(initialState.fields);
   const [meals, setMeals] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
   const { id } = useParams();
+
   useEffect(() => {
     getMeals(id).then((res) => {
       setMeals(res);
@@ -37,6 +41,11 @@ function FoodDiary() {
     document.getElementById("calories-id").value = "";
     document.getElementById("food-id").value = "";
   }
+
+  async function clearSetSelectedDate() {
+    setSelectedDate("");
+  }
+
   return (
     <div>
       <form onSubmit={addMeal}>
@@ -76,13 +85,25 @@ function FoodDiary() {
         <br />
       </form>
       <br />
+      <br />
+      <button type="submit" onClick={() => clearSetSelectedDate}>
+        {selectedDate}
+      </button>
+      {selectedDate ? (
+        <div>{selectedDate}</div>
+      ) : (
+        <DateSelector setSelectedDate={setSelectedDate} />
+      )}
+      <br />
+      <br />
+      <br />
       here are you meals:
       {meals.map((meal) => (
         <Meal
           key={meal.id}
           name={meal.name}
           calories={meal.calories}
-          time={meal.time}
+          datetime={meal.time}
         />
       ))}
     </div>
