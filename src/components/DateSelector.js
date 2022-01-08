@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import Day from "./Day";
 
-function DateSelector({ setSelectedDate }) {
-  const [monthSelected, setMonthSelected] = useState("");
+function DateSelector({ selectedMonth, setSelectedDay, setSelectedMonth }) {
   const months = [
     "Janaury",
     "February",
@@ -19,18 +17,25 @@ function DateSelector({ setSelectedDate }) {
     "December",
   ];
 
+  const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  console.log(days[months.indexOf("March")]);
+  console.log(
+    [...Array(days[months.indexOf("March")]).keys()].map((i) => i + 1)
+  );
+
   async function handleSelectMonth(e) {
-    setMonthSelected(e.target.textContent);
+    setSelectedMonth(e.target.textContent);
   }
 
   async function handleSelectDay(e) {
-    setSelectedDate(e.target.textContent);
+    setSelectedDay(e.target.textContent);
   }
 
   return (
     <div>
       {" "}
-      {!monthSelected ? (
+      {!selectedMonth ? (
         <div className="meal-calendar">
           {months.map((month) => (
             <div
@@ -43,17 +48,28 @@ function DateSelector({ setSelectedDate }) {
           ))}
         </div>
       ) : (
-        <Day
-          month={monthSelected}
-          handleSelectDay={(e) => handleSelectDay(e)}
-        />
+        <div className="meal-calendar-days">
+          {[...Array(days[months.indexOf(selectedMonth)]).keys()]
+            .map((i) => i + 1)
+            .map((day) => (
+              <div
+                className="meal-calendar-day"
+                onClick={handleSelectDay}
+                aria-hidden="true"
+              >
+                {day}
+              </div>
+            ))}
+        </div>
       )}
     </div>
   );
 }
 
 DateSelector.propTypes = {
-  setSelectedDate: PropTypes.func.isRequired,
+  selectedMonth: PropTypes.string.isRequired,
+  setSelectedDay: PropTypes.func.isRequired,
+  setSelectedMonth: PropTypes.func.isRequired,
 };
 
 export default DateSelector;

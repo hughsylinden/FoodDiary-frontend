@@ -11,3 +11,14 @@
 .meal-calendar-month:hover {
   background: grey;
 }
+
+.meal-calendar-days {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.meal-calendar-day {
+  border: solid 1px black;
+  padding: 10px;
+}

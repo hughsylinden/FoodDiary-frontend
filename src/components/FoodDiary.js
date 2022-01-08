@@ -17,7 +17,8 @@ function FoodDiary() {
   };
   const [fields, setFields] = useState(initialState.fields);
   const [meals, setMeals] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
@@ -42,10 +43,10 @@ function FoodDiary() {
     document.getElementById("food-id").value = "";
   }
 
-  async function clearSetSelectedDate() {
-    setSelectedDate("");
+  async function clear() {
+    setSelectedDay("");
+    setSelectedMonth("");
   }
-
   return (
     <div>
       <form onSubmit={addMeal}>
@@ -86,13 +87,17 @@ function FoodDiary() {
       </form>
       <br />
       <br />
-      <button type="submit" onClick={() => clearSetSelectedDate}>
-        {selectedDate}
-      </button>
-      {selectedDate ? (
-        <div>{selectedDate}</div>
+      {selectedDay ? (
+        <div>
+          <div>day: {selectedDay}</div>
+          <div>month: {selectedMonth}</div>
+        </div>
       ) : (
-        <DateSelector setSelectedDate={setSelectedDate} />
+        <DateSelector
+          selectedMonth={selectedMonth}
+          setSelectedDay={setSelectedDay}
+          setSelectedMonth={setSelectedMonth}
+        />
       )}
       <br />
       <br />
@@ -106,6 +111,9 @@ function FoodDiary() {
           datetime={meal.time}
         />
       ))}
+      <button type="button" onClick={clear}>
+        clear
+      </button>
     </div>
   );
 }
