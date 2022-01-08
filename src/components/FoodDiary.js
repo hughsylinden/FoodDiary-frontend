@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { useParams } from "react-router-dom";
-import saveMeal from "../utils/saveMeal";
-import getMeals from "../utils/getMeals";
+import { saveMeal, getMeals, getMealsByDate } from "../utils/Meal";
 import Meal from "./Meal";
 import DateSelector from "./DateSelector";
 import "../styles/FoodDiary.css";
@@ -47,6 +47,14 @@ function FoodDiary() {
     setSelectedDay("");
     setSelectedMonth("");
   }
+
+  async function getByDate() {
+    const formattedDate = moment(
+      `${new Date().getFullYear()} ${selectedMonth} ${selectedDay}`
+    ).format("YYYY MM DD");
+    const temp = await getMealsByDate(id, formattedDate);
+    console.log(temp);
+  }
   return (
     <div>
       <form onSubmit={addMeal}>
@@ -91,6 +99,7 @@ function FoodDiary() {
         <div>
           <div>day: {selectedDay}</div>
           <div>month: {selectedMonth}</div>
+          <div>year: {new Date().getFullYear()}</div>
         </div>
       ) : (
         <DateSelector
@@ -112,7 +121,11 @@ function FoodDiary() {
         />
       ))}
       <button type="button" onClick={clear}>
-        clear
+        cleara
+      </button>
+      <br />
+      <button type="button" onClick={getByDate}>
+        get by date
       </button>
     </div>
   );

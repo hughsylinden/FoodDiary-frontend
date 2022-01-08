@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
 import { UserContext } from "../contexts/UserContext";
-import { getFoodDiaryByUser } from "../utils/getDiaries";
-import addFoodDiary from "../utils/addFoodDiary";
+import { addFoodDiary, getFoodDiaryByUser } from "../utils/FoodDiary";
 
 function LandingPage() {
   const { user } = useContext(UserContext);

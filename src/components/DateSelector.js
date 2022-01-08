@@ -19,11 +19,6 @@ function DateSelector({ selectedMonth, setSelectedDay, setSelectedMonth }) {
 
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-  console.log(days[months.indexOf("March")]);
-  console.log(
-    [...Array(days[months.indexOf("March")]).keys()].map((i) => i + 1)
-  );
-
   async function handleSelectMonth(e) {
     setSelectedMonth(e.target.textContent);
   }
