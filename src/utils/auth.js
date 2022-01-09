@@ -12,8 +12,6 @@ async function signin(username, password) {
 }
 
 async function signup(username, password) {
-  console.log(username);
-  console.log(password);
   return axios
     .post("http://localhost:4000/auth/signup", {
       username,

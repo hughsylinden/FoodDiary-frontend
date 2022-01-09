@@ -18,7 +18,7 @@ function Meal({ name, calories, datetime }) {
 
 Meal.propTypes = {
   name: PropTypes.string.isRequired,
-  calories: PropTypes.string.isRequired,
+  calories: PropTypes.number.isRequired,
   datetime: PropTypes.string.isRequired,
 };
 

@@ -43,14 +43,14 @@ function FoodDiary() {
     document.getElementById("food-id").value = "";
   }
 
-  async function clear() {
+  function clear() {
     setSelectedDay("");
     setSelectedMonth("");
   }
 
   async function getByDate() {
     const formattedDate = moment(
-      `${new Date().getFullYear()} ${selectedMonth} ${selectedDay}`
+      `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
     ).format("YYYY MM DD");
     const temp = await getMealsByDate(id, formattedDate);
     console.log(temp);

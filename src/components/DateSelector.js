@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -19,6 +20,10 @@ function DateSelector({ selectedMonth, setSelectedDay, setSelectedMonth }) {
 
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+  const dayArray = [...Array(days[months.indexOf(selectedMonth)]).keys()].map(
+    (i) => i + 1
+  );
+
   async function handleSelectMonth(e) {
     setSelectedMonth(e.target.textContent);
   }
@@ -32,8 +37,9 @@ function DateSelector({ selectedMonth, setSelectedDay, setSelectedMonth }) {
       {" "}
       {!selectedMonth ? (
         <div className="meal-calendar">
-          {months.map((month) => (
+          {months.map((month, i) => (
             <div
+              key={i}
               className="meal-calendar-month"
               onClick={handleSelectMonth}
               aria-hidden="true"
@@ -44,17 +50,16 @@ function DateSelector({ selectedMonth, setSelectedDay, setSelectedMonth }) {
         </div>
       ) : (
         <div className="meal-calendar-days">
-          {[...Array(days[months.indexOf(selectedMonth)]).keys()]
-            .map((i) => i + 1)
-            .map((day) => (
-              <div
-                className="meal-calendar-day"
-                onClick={handleSelectDay}
-                aria-hidden="true"
-              >
-                {day}
-              </div>
-            ))}
+          {dayArray.map((day, i) => (
+            <div
+              key={i}
+              className="meal-calendar-day"
+              onClick={handleSelectDay}
+              aria-hidden="true"
+            >
+              {day}
+            </div>
+          ))}
         </div>
       )}
     </div>
