@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { useParams } from "react-router-dom";
-import { saveMeal, getMeals, getMealsByDate } from "../utils/Meal";
+import { saveMeal, getMealsByDate, getMealsByMonth } from "../utils/Meal";
+import { getFoodDiary } from "../utils/FoodDiary";
 import Meal from "./Meal";
 import DateSelector from "./DateSelector";
 import "../styles/FoodDiary.css";
@@ -14,18 +15,32 @@ function FoodDiary() {
       date: "0000-00-00",
       time: "00:00",
     },
+    foodDiary: {
+      name: "",
+      dailyCalorieTarget: "",
+    },
   };
   const [fields, setFields] = useState(initialState.fields);
   const [meals, setMeals] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
+  const [foodDiary, setFoodDiary] = useState(initialState.foodDiary);
   const { id } = useParams();
 
-  useEffect(() => {
-    getMeals(id).then((res) => {
-      setMeals(res);
+  useEffect(async () => {
+    await getFoodDiary(id).then((res) => {
+      setFoodDiary(res);
     });
   }, []);
+
+  useEffect(() => {
+    const formattedDate = moment(
+      `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
+    ).format("YYYY MM DD");
+    getMealsByDate(id, formattedDate).then((res) => {
+      setMeals(res);
+    });
+  }, [selectedDay]);
 
   const handleFieldChange = (e) => {
     e.preventDefault();
@@ -48,13 +63,15 @@ function FoodDiary() {
     setSelectedMonth("");
   }
 
-  async function getByDate() {
+  async function month() {
     const formattedDate = moment(
-      `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
+      `${new Date().getFullYear()}-${selectedMonth}`
     ).format("YYYY MM DD");
-    const temp = await getMealsByDate(id, formattedDate);
-    console.log(temp);
+    getMealsByMonth(id, formattedDate).then(() => {
+      console.log("hey");
+    });
   }
+
   return (
     <div>
       <form onSubmit={addMeal}>
@@ -94,6 +111,7 @@ function FoodDiary() {
         <br />
       </form>
       <br />
+      Food Diary: {foodDiary.name}
       <br />
       {selectedDay ? (
         <div>
@@ -103,9 +121,11 @@ function FoodDiary() {
         </div>
       ) : (
         <DateSelector
+          id={id}
           selectedMonth={selectedMonth}
           setSelectedDay={setSelectedDay}
           setSelectedMonth={setSelectedMonth}
+          setMeals={setMeals}
         />
       )}
       <br />
@@ -121,12 +141,12 @@ function FoodDiary() {
         />
       ))}
       <button type="button" onClick={clear}>
-        cleara
+        clear date
+      </button>
+      <button type="button" onClick={month}>
+        get by month
       </button>
       <br />
-      <button type="button" onClick={getByDate}>
-        get by date
-      </button>
     </div>
   );
 }

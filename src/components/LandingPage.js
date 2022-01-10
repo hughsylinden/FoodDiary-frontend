@@ -7,7 +7,7 @@ import { addFoodDiary, getFoodDiaryByUser } from "../utils/FoodDiary";
 function LandingPage() {
   const { user } = useContext(UserContext);
   const initialState = {
-    fields: { username: "", password: "" },
+    fields: { username: "", password: "", name: "", dailyCalorieTarget: "" },
   };
   const [fields, setFields] = useState(initialState.fields);
   const [foodDiary, setFoodDiary] = useState([]);
@@ -30,10 +30,12 @@ function LandingPage() {
 
   async function handleAddFoodDiary(e) {
     const fd = foodDiary;
-    await addFoodDiary(fields.name, user.id).then((res) => {
-      fd.push(res);
-      setFoodDiary(fd);
-    });
+    await addFoodDiary(fields.name, fields.dailyCalorieTarget, user.id).then(
+      (res) => {
+        fd.push(res);
+        setFoodDiary(fd);
+      }
+    );
     e.target.previousSibling.value = "";
     setFields({ ...fields, name: "" });
   }
@@ -47,6 +49,13 @@ function LandingPage() {
             <div>
               diary name
               <input type="text" name="name" onChange={handleFieldChange} />
+              <br />
+              daily calorie target
+              <input
+                type="text"
+                name="dailyCalorieTarget"
+                onChange={handleFieldChange}
+              />
               <button type="submit" onClick={handleAddFoodDiary}>
                 add
               </button>
