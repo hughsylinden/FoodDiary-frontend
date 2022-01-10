@@ -21,11 +21,13 @@ function SignIn() {
     e.preventDefault();
     signin(fields.username, fields.password).then((res) => {
       if (res.username) {
-        setUser({
+        const loggedInUser = {
           id: res.id,
           username: res.username,
           password: res.password,
-        });
+        };
+        setUser(loggedInUser);
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
         navigate("/");
       }
     });

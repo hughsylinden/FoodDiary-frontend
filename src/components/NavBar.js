@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import "../styles/NavBar.css";
@@ -6,9 +6,15 @@ import "../styles/NavBar.css";
 function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.loggedInUser) {
+      setUser(JSON.parse(localStorage.loggedInUser));
+    }
+  }, []);
 
   async function logout() {
-    setUser("");
+    setUser({ username: "", accessToken: "", id: "" });
+    localStorage.clear();
     navigate("/");
   }
   return (
