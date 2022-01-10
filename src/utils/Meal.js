@@ -32,4 +32,26 @@ async function getMealsByDate(foodDiaryId, date) {
     });
 }
 
-export { getMeals, saveMeal, getMealsByDate };
+async function getMealsByMonth(foodDiaryId, date) {
+  return axios
+    .post("http://localhost:4000/meal/searchbymonth/", {
+      FoodDiaryId: foodDiaryId,
+      date,
+    })
+    .then((res) => {
+      return res.data;
+    });
+}
+
+async function getMealsByYear(foodDiaryId, date) {
+  return axios
+    .post("http://localhost:4000/meal/searchbyyear/", {
+      FoodDiaryId: foodDiaryId,
+      date,
+    })
+    .then((res) => {
+      return res.data;
+    });
+}
+
+export { getMeals, saveMeal, getMealsByDate, getMealsByMonth, getMealsByYear };

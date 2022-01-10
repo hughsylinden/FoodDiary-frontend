@@ -1,9 +1,10 @@
 import axios from "axios";
 
-async function addFoodDiary(name, userId) {
+async function addFoodDiary(name, dailyCalorieTarget, userId) {
   return axios
     .post("http://localhost:4000/fooddiary", {
       name,
+      dailyCalorieTarget,
       UserId: userId,
     })
     .then((res) => {
