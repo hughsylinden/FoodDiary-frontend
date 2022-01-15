@@ -30,11 +30,6 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
     });
   }, [selectedMonth]);
 
-  console.log(
-    monthsContainingActivity
-      .filter((m) => m.getMonth() === months.indexOf(selectedMonth))
-      .map((d) => d.getDate())
-  );
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   const dayArray = [...Array(days[months.indexOf(selectedMonth)]).keys()].map(
@@ -51,21 +46,21 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
 
   return (
     <div>
-      {" "}
       {!selectedMonth ? (
-        <div className="meal-calendar">
+        <div className="meal-calendar-months">
           {months.map((month, i) => (
             <div
               key={i}
               name={month}
-              className="meal-calendar-month"
+              className={
+                monthsContainingActivity.map((m) => m.getMonth()).includes(i)
+                  ? "meal-calendar-month-active"
+                  : "meal-calendar-month"
+              }
               onClick={handleSelectMonth}
               aria-hidden="true"
             >
               {month}
-              {monthsContainingActivity
-                .map((m) => m.getMonth())
-                .includes(i) && <>-x</>}
             </div>
           ))}
         </div>
@@ -74,15 +69,18 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
           {dayArray.map((day, i) => (
             <div
               key={i}
-              className="meal-calendar-day"
+              className={
+                monthsContainingActivity
+                  .filter((m) => m.getMonth() === months.indexOf(selectedMonth))
+                  .map((d) => d.getDate())
+                  .includes(day)
+                  ? "meal-calendar-day-active"
+                  : "meal-calendar-day"
+              }
               onClick={handleSelectDay}
               aria-hidden="true"
             >
               {day}
-              {monthsContainingActivity
-                .filter((m) => m.getMonth() === months.indexOf(selectedMonth))
-                .map((d) => d.getDate())
-                .includes(day) && <>-x</>}
             </div>
           ))}
         </div>

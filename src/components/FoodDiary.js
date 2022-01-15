@@ -33,11 +33,12 @@ function FoodDiary() {
     });
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     const formattedDate = moment(
       `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
     ).format("YYYY MM DD");
-    getMealsByDate(id, formattedDate).then((res) => {
+    console.log(`${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`);
+    await getMealsByDate(id, formattedDate).then((res) => {
       setMeals(res);
     });
   }, [selectedDay]);
@@ -67,8 +68,8 @@ function FoodDiary() {
     const formattedDate = moment(
       `${new Date().getFullYear()}-${selectedMonth}`
     ).format("YYYY MM DD");
-    getMealsByMonth(id, formattedDate).then(() => {
-      console.log("hey");
+    getMealsByMonth(id, formattedDate).then((res) => {
+      console.log(res);
     });
   }
 
@@ -115,9 +116,9 @@ function FoodDiary() {
       <br />
       {selectedDay ? (
         <div>
-          <div>day: {selectedDay}</div>
-          <div>month: {selectedMonth}</div>
-          <div>year: {new Date().getFullYear()}</div>
+          <div>
+            date: {selectedDay} {selectedMonth} {new Date().getFullYear()}
+          </div>
         </div>
       ) : (
         <DateSelector
@@ -129,7 +130,14 @@ function FoodDiary() {
         />
       )}
       <br />
-      <br />
+      {meals.length > 0 && (
+        <div>
+          Total Calories:
+          {meals
+            .map((meal) => meal.calories)
+            .reduce((total, amount) => total + amount)}
+        </div>
+      )}
       <br />
       here are you meals:
       {meals.map((meal) => (

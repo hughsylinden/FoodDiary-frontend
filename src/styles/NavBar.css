@@ -1,3 +1,6 @@
 .NavBar {
   border: 1px black solid;
+  background: #499bff;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

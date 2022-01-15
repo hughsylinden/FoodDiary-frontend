@@ -1,10 +1,15 @@
-.meal-calendar {
+.meal-calendar-months {
   display: flex;
   justify-content: center;
 }
 
 .meal-calendar-month {
   border: solid 1px black;
+  padding: 10px;
+}
+
+.meal-calendar-month-active {
+  border: solid 1px red;
   padding: 10px;
 }
 
@@ -20,5 +25,10 @@
 
 .meal-calendar-day {
   border: solid 1px black;
+  padding: 10px;
+}
+
+.meal-calendar-day-active {
+  border: solid 1px red;
   padding: 10px;
 }

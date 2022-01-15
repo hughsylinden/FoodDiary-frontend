@@ -1,0 +1,25 @@
+.landing-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #16302b;
+  padding-top: 50px;
+  align-items: center;
+}
+
+.title {
+  border: #ecdc25 10px solid;
+  width: 300px;
+  height: 600px;
+  background-color: #eb2944;
+  border-radius: 25px;
+}
+
+.inputs {
+  border: #ecdc25 10px solid;
+  flex-grow: 0;
+  width: 300px;
+  height: 600px;
+  background-color: #499bff;
+  border-radius: 25px;
+}
