@@ -1,3 +1,16 @@
+.fooddiary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  align-items: center;
+  margin-right: 300px;
+  margin-left: 300px;
+  background-color: #eb2944;
+  border: #ecdc25 10px solid;
+  border-radius: 25px;
+}
+
 .meal-calendar-months {
   display: flex;
   justify-content: center;
@@ -31,4 +44,18 @@
 .meal-calendar-day-active {
   border: solid 1px red;
   padding: 10px;
+}
+
+.meal-form {
+  padding-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.meal-form form {
+  background-color: #499bff;
+  border: #ecdc25 10px solid;
+  width: 600px;
+  padding: 10px;
+  border-radius: 25px;
 }

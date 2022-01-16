@@ -1,11 +1,13 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { useParams } from "react-router-dom";
-import { saveMeal, getMealsByDate, getMealsByMonth } from "../utils/Meal";
+import { saveMeal, getMealsByDate } from "../utils/Meal";
 import { getFoodDiary } from "../utils/FoodDiary";
 import Meal from "./Meal";
 import DateSelector from "./DateSelector";
 import "../styles/FoodDiary.css";
+import AddMealForm from "./inputs/AddMealForm";
 
 function FoodDiary() {
   const initialState = {
@@ -19,12 +21,16 @@ function FoodDiary() {
       name: "",
       dailyCalorieTarget: "",
     },
+    showAddMealForm: false,
   };
   const [fields, setFields] = useState(initialState.fields);
   const [meals, setMeals] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [foodDiary, setFoodDiary] = useState(initialState.foodDiary);
+  const [showAddMealForm, setShowAddMealForm] = useState(
+    initialState.showAddMealForm
+  );
   const { id } = useParams();
 
   useEffect(async () => {
@@ -37,7 +43,6 @@ function FoodDiary() {
     const formattedDate = moment(
       `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
     ).format("YYYY MM DD");
-    console.log(`${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`);
     await getMealsByDate(id, formattedDate).then((res) => {
       setMeals(res);
     });
@@ -46,6 +51,11 @@ function FoodDiary() {
   const handleFieldChange = (e) => {
     e.preventDefault();
     setFields({ ...fields, [e.target.name]: e.target.value });
+  };
+
+  const handleShowMealForm = (e) => {
+    e.preventDefault();
+    setShowAddMealForm(!showAddMealForm);
   };
 
   async function addMeal(e) {
@@ -64,55 +74,30 @@ function FoodDiary() {
     setSelectedMonth("");
   }
 
-  async function month() {
-    const formattedDate = moment(
-      `${new Date().getFullYear()}-${selectedMonth}`
-    ).format("YYYY MM DD");
-    getMealsByMonth(id, formattedDate).then((res) => {
-      console.log(res);
-    });
-  }
-
   return (
-    <div>
-      <form onSubmit={addMeal}>
-        food{" "}
-        <input
-          type="text"
-          id="food-id"
-          name="food"
-          onChange={handleFieldChange}
-        />
+    <div className="fooddiary">
+      <div className="fooddiary-dashboard">
+        <div>dashboard</div>
+        daily calorie goal: {foodDiary.dailyCalorieTarget}
         <br />
-        calories{" "}
-        <input
-          type="text"
-          id="calories-id"
-          name="calories"
-          onChange={handleFieldChange}
-        />
-        <br />
-        date{" "}
-        <input
-          type="date"
-          id="date-id"
-          name="date"
-          onChange={handleFieldChange}
-        />
-        <br />
-        time{" "}
-        <input
-          type="time"
-          id="time-id"
-          name="time"
-          onChange={handleFieldChange}
-        />
-        <br />
-        <button type="submit">add meal</button>
-        <br />
-      </form>
+        total calories:
+      </div>
+      {!showAddMealForm && (
+        <button type="button" onClick={handleShowMealForm}>
+          Add Meal
+        </button>
+      )}
+      {showAddMealForm && (
+        <div className="meal-form">
+          <AddMealForm
+            handleFieldChange={handleFieldChange}
+            addMeal={addMeal}
+            handleShowMealForm={handleShowMealForm}
+          />
+        </div>
+      )}
       <br />
-      Food Diary: {foodDiary.name}
+      {foodDiary.name}
       <br />
       {selectedDay ? (
         <div>
@@ -139,21 +124,20 @@ function FoodDiary() {
         </div>
       )}
       <br />
-      here are you meals:
-      {meals.map((meal) => (
-        <Meal
-          key={meal.id}
-          name={meal.name}
-          calories={meal.calories}
-          datetime={meal.time}
-        />
-      ))}
-      <button type="button" onClick={clear}>
-        clear date
-      </button>
-      <button type="button" onClick={month}>
-        get by month
-      </button>
+      {selectedDay &&
+        meals.map((meal) => (
+          <Meal
+            key={meal.id}
+            name={meal.name}
+            calories={meal.calories}
+            datetime={meal.time}
+          />
+        ))}
+      {(selectedMonth || selectedDay) && (
+        <button type="button" onClick={clear}>
+          clear date
+        </button>
+      )}
       <br />
     </div>
   );

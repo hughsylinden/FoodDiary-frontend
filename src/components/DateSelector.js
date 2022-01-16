@@ -45,7 +45,7 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
   }
 
   return (
-    <div>
+    <div className="date-selector">
       {!selectedMonth ? (
         <div className="meal-calendar-months">
           {months.map((month, i) => (
