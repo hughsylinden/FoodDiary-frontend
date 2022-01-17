@@ -5,15 +5,25 @@ function DiaryInputs({ handleAddFoodDiary, handleFieldChange }) {
   return (
     <>
       diary name
-      <input type="text" name="name" onChange={handleFieldChange} />
+      <input
+        className="title-input"
+        type="text"
+        name="name"
+        onChange={handleFieldChange}
+      />
       <br />
       daily calorie target
       <input
+        className="title-input"
         type="text"
         name="dailyCalorieTarget"
         onChange={handleFieldChange}
       />
-      <button type="submit" onClick={handleAddFoodDiary}>
+      <button
+        type="submit"
+        className="title-button"
+        onClick={handleAddFoodDiary}
+      >
         add
       </button>
       <br />

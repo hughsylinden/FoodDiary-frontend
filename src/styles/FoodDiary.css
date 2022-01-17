@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
   align-items: center;
+  margin-top: 50px;
   margin-right: 300px;
   margin-left: 300px;
   background-color: #eb2944;
@@ -17,7 +17,7 @@
 }
 
 .meal-calendar-month {
-  border: solid 1px black;
+  border: solid 1px #eb2944;
   padding: 10px;
 }
 
@@ -37,13 +37,21 @@
 }
 
 .meal-calendar-day {
-  border: solid 1px black;
+  border: solid 1px #eb2944;
   padding: 10px;
+  border: solid 1px #eb2944;
 }
 
 .meal-calendar-day-active {
-  border: solid 1px red;
   padding: 10px;
+  border: solid 1px #499bff;
+  background-color: #ecdc25;
+  border-radius: 10px;
+}
+
+.meal-calendar-day-active:hover {
+  background-color: #eb2944;
+  border: solid 1px #ecdc25;
 }
 
 .meal-form {
