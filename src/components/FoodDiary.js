@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { useParams } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { saveMeal, getMealsByDate } from "../utils/Meal";
 import { getFoodDiary } from "../utils/FoodDiary";
 import Meal from "./Meal";
@@ -138,7 +139,6 @@ function FoodDiary() {
           clear date
         </button>
       )}
-      <br />
     </div>
   );
 }

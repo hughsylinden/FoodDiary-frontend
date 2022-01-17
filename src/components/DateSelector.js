@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { getMealsByYear } from "../utils/Meal";
+import { getMealsByYear, getDailyCalorieIntake } from "../utils/Meal";
 
 const months = [
   "Janaury",
@@ -21,12 +21,16 @@ const months = [
 
 function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
   const [monthsContainingActivity, setMonthsContainingActivity] = useState([]);
+  const [caloriePerday, setCaloriePerday] = useState([]);
   useEffect(async () => {
     const formattedDate = moment(
       `${new Date().getFullYear()}-${selectedMonth}`
     ).format("YYYY MM DD");
     await getMealsByYear(id, formattedDate).then((res) => {
       setMonthsContainingActivity(res.map((day) => new Date(day.time)));
+    });
+    await getDailyCalorieIntake(id, formattedDate).then((res) => {
+      setCaloriePerday(res);
     });
   }, [selectedMonth]);
 
@@ -81,6 +85,7 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
               aria-hidden="true"
             >
               {day}
+              {caloriePerday[day] > 0 && <div>{caloriePerday[day]}</div>}
             </div>
           ))}
         </div>

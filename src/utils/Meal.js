@@ -54,4 +54,33 @@ async function getMealsByYear(foodDiaryId, date) {
     });
 }
 
-export { getMeals, saveMeal, getMealsByDate, getMealsByMonth, getMealsByYear };
+async function getDailyCalorieIntake(foodDiaryId, date) {
+  return axios
+    .post("http://localhost:4000/meal/test/", {
+      FoodDiaryId: foodDiaryId,
+      date,
+    })
+    .then((res) => {
+      let cals = [];
+
+      if (res.data.length > 0) {
+        const dateObj = new Date(res.data[0].time);
+        cals = Array(
+          new Date(dateObj.getFullYear(), dateObj.getMonth(), 0).getDate()
+        ).fill(0);
+        res.data.forEach((meal) => {
+          cals[dateObj.getDate()] += meal.calories;
+        });
+      }
+      return cals;
+    });
+}
+
+export {
+  getMeals,
+  saveMeal,
+  getMealsByDate,
+  getMealsByMonth,
+  getMealsByYear,
+  getDailyCalorieIntake,
+};
