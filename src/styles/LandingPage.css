@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.title {
+.landing-page__title {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,19 +15,11 @@
   height: 600px;
   background-color: #eb2944;
   border-radius: 25px;
+  font-size: 75px;
+  font-weight: 900;
 }
 
-.title-input {
-  margin-left: 50px;
-  margin-right: 50px;
-}
-
-.title-button {
-  margin-left: 50px;
-  margin-right: 50px;
-}
-
-.inputs {
+.landing-page__diaries {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,4 +29,22 @@
   height: 600px;
   background-color: #499bff;
   border-radius: 25px;
+}
+
+.diary-inputs {
+  margin-top: auto;
+}
+.landing-page__links {
+  margin-top: auto;
+}
+
+.landing-page__diaries button {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: auto;
+}
+
+.landing-page__diaries input {
+  margin-left: 50px;
+  margin-right: 50px;
 }

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { getMealsByYear, getDailyCalorieIntake } from "../utils/Meal";
-import "../styles/DateSelector.css";
 
 const months = [
   "Janaury",
@@ -85,13 +84,11 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
               onClick={handleSelectDay}
               aria-hidden="true"
             >
-              {day}
+              <div>{day}</div>
               {caloriePerday[day] > 0 ? (
                 <div>{caloriePerday[day]}</div>
               ) : (
-                <div className="meal-calendar-day-empty">
-                  {caloriePerday[day]}
-                </div>
+                <div className="meal-calendar-day-empty">-</div>
               )}
             </div>
           ))}

@@ -44,40 +44,48 @@ function LandingPage() {
   }
 
   return (
-    <div>
+    <div className="landing-page">
       {user.username ? (
-        <div className="landing-page">
-          <div className="title">
+        <>
+          <div className="landing-page__title">
             <p>
               {user.username[0].toUpperCase() +
                 user.username.slice(1).toLowerCase()}
-              s <br /> Food Diaries{" "}
+              &apos;s <br /> Food Diaries{" "}
             </p>
-            <button type="submit" onClick={viewNewDiaryInputs}>
-              {showDiaryInputs ? <>Cancel</> : <>New Diary</>}
-            </button>
           </div>
-          <div className="inputs">
+          <div className="landing-page__diaries">
             {showDiaryInputs && (
               <DiaryInputs
                 handleFieldChange={handleFieldChange}
                 handleAddFoodDiary={handleAddFoodDiary}
               />
             )}
-            {!showDiaryInputs &&
-              foodDiary.map((fd) => (
-                <Link
-                  to={`/FoodDiary/${fd.id}`}
-                  type="button"
-                  id={fd.id}
-                  key={fd.id}
-                >
-                  {fd.name}
-                  <br />
-                </Link>
-              ))}
+
+            {!showDiaryInputs && (
+              <div className="landing-page__links">
+                {foodDiary.map((fd) => (
+                  <Link
+                    to={`/FoodDiary/${fd.id}`}
+                    type="button"
+                    id={fd.id}
+                    key={fd.id}
+                  >
+                    {fd.name}
+                    <br />
+                  </Link>
+                ))}
+              </div>
+            )}
+            <button
+              className="landing-page__button"
+              type="submit"
+              onClick={viewNewDiaryInputs}
+            >
+              {showDiaryInputs ? <>Cancel</> : <>New Diary</>}
+            </button>
           </div>
-        </div>
+        </>
       ) : (
         <SignIn />
       )}

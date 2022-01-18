@@ -77,68 +77,67 @@ function FoodDiary() {
 
   return (
     <div className="fooddiary">
-      <div className="fooddiary-dashboard">
-        <div>dashboard</div>
-        daily calorie goal: {foodDiary.dailyCalorieTarget}
+      <div className="fooddiary__dateselector">
+        <div className="fooddiary__dashboard">
+          <div>{foodDiary.name}</div>
+          daily calorie goal: {foodDiary.dailyCalorieTarget}
+          <br />
+        </div>
+
         <br />
-        total calories:
+        <br />
+        {selectedDay ? (
+          <div>
+            date: {selectedDay} {selectedMonth} {new Date().getFullYear()}
+          </div>
+        ) : (
+          <DateSelector
+            id={id}
+            selectedMonth={selectedMonth}
+            setSelectedDay={setSelectedDay}
+            setSelectedMonth={setSelectedMonth}
+            setMeals={setMeals}
+          />
+        )}
+        <br />
+        {!showAddMealForm && (
+          <button type="button" onClick={handleShowMealForm}>
+            Add Meal
+          </button>
+        )}
+        {(selectedMonth || selectedDay) && (
+          <button type="button" onClick={clear}>
+            clear date
+          </button>
+        )}
       </div>
-      {!showAddMealForm && (
-        <button type="button" onClick={handleShowMealForm}>
-          Add Meal
-        </button>
-      )}
-      {showAddMealForm && (
-        <div className="meal-form">
+      <div className="fooddiary__meals">
+        {showAddMealForm && (
           <AddMealForm
             handleFieldChange={handleFieldChange}
             addMeal={addMeal}
             handleShowMealForm={handleShowMealForm}
           />
-        </div>
-      )}
-      <br />
-      {foodDiary.name}
-      <br />
-      {selectedDay ? (
-        <div>
+        )}
+        {meals.length > 0 && (
           <div>
-            date: {selectedDay} {selectedMonth} {new Date().getFullYear()}
+            Total Calories:
+            {meals
+              .map((meal) => meal.calories)
+              .reduce((total, amount) => total + amount)}
           </div>
-        </div>
-      ) : (
-        <DateSelector
-          id={id}
-          selectedMonth={selectedMonth}
-          setSelectedDay={setSelectedDay}
-          setSelectedMonth={setSelectedMonth}
-          setMeals={setMeals}
-        />
-      )}
-      <br />
-      {meals.length > 0 && (
-        <div>
-          Total Calories:
-          {meals
-            .map((meal) => meal.calories)
-            .reduce((total, amount) => total + amount)}
-        </div>
-      )}
-      <br />
-      {selectedDay &&
-        meals.map((meal) => (
-          <Meal
-            key={meal.id}
-            name={meal.name}
-            calories={meal.calories}
-            datetime={meal.time}
-          />
-        ))}
-      {(selectedMonth || selectedDay) && (
-        <button type="button" onClick={clear}>
-          clear date
-        </button>
-      )}
+        )}
+        <br />
+        {selectedDay &&
+          meals.map((meal) => (
+            <Meal
+              key={meal.id}
+              name={meal.name}
+              calories={meal.calories}
+              datetime={meal.time}
+            />
+          ))}
+      </div>
     </div>
   );
 }

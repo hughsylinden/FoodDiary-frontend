@@ -1,18 +1,39 @@
 .fooddiary {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fooddiary__meals {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
-  margin-right: 300px;
-  margin-left: 300px;
   background-color: #eb2944;
   border: #ecdc25 10px solid;
+  width: 300px;
+  height: 600px;
+  border-radius: 25px;
+}
+
+.fooddiary__dateselector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eb2944;
+  border: #ecdc25 10px solid;
+  width: 300px;
+  height: 600px;
   border-radius: 25px;
 }
 
 .meal-calendar-months {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -22,11 +43,11 @@
 }
 
 .meal-calendar-month-active {
-  border: solid 1px red;
+  border: solid 1px black;
   padding: 10px;
 }
 
-.meal-calendar-month:hover {
+.meal-calendar-month-active:hover {
   background: grey;
 }
 

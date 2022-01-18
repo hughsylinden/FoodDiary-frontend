@@ -2,6 +2,10 @@ body {
   margin: 0;
   background: #bebbbb;
   background-image: url("../styles/assets/background.jpg");
+  height: 100vh;
+  width: 100vw;
+  background-size: 100vw auto;
+  background-position: center;
 }
 
 code {
