@@ -39,9 +39,13 @@
 }
 
 .landing-page__diaries button {
-  margin-left: 50px;
-  margin-right: 50px;
   margin-top: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  background-color: #ecdc25;
+  border: none;
+  font-size: large;
 }
 
 .landing-page__diaries input {

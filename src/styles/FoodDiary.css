@@ -19,6 +19,11 @@
   border-radius: 25px;
 }
 
+.fooddiary__meals--title {
+  font-size: 75px;
+  font-weight: 900;
+}
+
 .fooddiary__dateselector {
   display: flex;
   flex-direction: column;
