@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { useParams } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
 import { saveMeal, getMealsByDate } from "../utils/Meal";
 import { getFoodDiary } from "../utils/FoodDiary";
 import Meal from "./Meal";
@@ -83,7 +81,6 @@ function FoodDiary() {
           daily calorie goal: {foodDiary.dailyCalorieTarget}
           <br />
         </div>
-
         <br />
         <br />
         {selectedDay ? (
@@ -112,31 +109,54 @@ function FoodDiary() {
         )}
       </div>
       <div className="fooddiary__meals">
+        {!selectedDay && !showAddMealForm && (
+          <div className="fooddiary__meals--title">
+            <p>SELECT A DATE</p>
+          </div>
+        )}
         {showAddMealForm && (
           <AddMealForm
             handleFieldChange={handleFieldChange}
-            addMeal={addMeal}
+            addMeal={(e) => addMeal(e)}
             handleShowMealForm={handleShowMealForm}
           />
         )}
-        {meals.length > 0 && (
+        {/*         {selectedDay && (
           <div>
             Total Calories:
             {meals
-              .map((meal) => meal.calories)
+              .filter((meal) => {
+                const mealDate = moment(new Date(meal.time)).format(
+                  "YYYY MM DD"
+                );
+                const selectedDate = moment(
+                  `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
+                ).format("YYYY MM DD");
+                // eslint-disable-next-line eqeqeq
+                return mealDate == selectedDate;
+              })
+              .map((userMeals) => userMeals.calories)
               .reduce((total, amount) => total + amount)}
           </div>
-        )}
+        )} */}
         <br />
         {selectedDay &&
-          meals.map((meal) => (
-            <Meal
-              key={meal.id}
-              name={meal.name}
-              calories={meal.calories}
-              datetime={meal.time}
-            />
-          ))}
+          meals
+            .filter((meal) => {
+              const mealDate = moment(new Date(meal.time)).format("YYYY MM DD");
+              const selectedDate = moment(
+                `${new Date().getFullYear()}-${selectedMonth}-${selectedDay}`
+              ).format("YYYY MM DD");
+              return mealDate === selectedDate;
+            })
+            .map((meal) => (
+              <Meal
+                key={meal.id}
+                name={meal.name}
+                calories={meal.calories}
+                datetime={meal.time}
+              />
+            ))}
       </div>
     </div>
   );
