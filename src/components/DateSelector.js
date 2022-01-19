@@ -45,53 +45,70 @@ function DateSelector({ id, selectedMonth, setSelectedDay, setSelectedMonth }) {
   }
 
   async function handleSelectDay(e) {
-    setSelectedDay(e.target.parentNode.firstChild.textContent);
+    if (e.target.className === "meal-calendar-day-active") {
+      setSelectedDay(e.target.firstChild.textContent);
+    } else {
+      setSelectedDay(e.target.parentNode.firstChild.textContent);
+    }
   }
 
   return (
     <div className="date-selector">
       {!selectedMonth ? (
         <div className="meal-calendar-months">
-          {months.map((month, i) => (
-            <div
-              key={i}
-              name={month}
-              className={
-                monthsContainingActivity.map((m) => m.getMonth()).includes(i)
-                  ? "meal-calendar-month-active"
-                  : "meal-calendar-month"
-              }
-              onClick={handleSelectMonth}
-              aria-hidden="true"
-            >
-              {month}
-            </div>
-          ))}
+          {months.map((month, i) => {
+            const included = monthsContainingActivity
+              .map((m) => m.getMonth())
+              .includes(i);
+            return (
+              <div
+                key={i}
+                name={month}
+                className={
+                  included
+                    ? "meal-calendar-month-active"
+                    : "meal-calendar-month"
+                }
+                onClick={included ? handleSelectMonth : null}
+                aria-hidden="true"
+              >
+                {month}
+              </div>
+            );
+          })}
         </div>
       ) : (
         <div className="meal-calendar-days">
-          {dayArray.map((day, i) => (
-            <div
-              key={i}
-              className={
-                monthsContainingActivity
-                  .filter((m) => m.getMonth() === months.indexOf(selectedMonth))
-                  .map((d) => d.getDate())
-                  .includes(day)
-                  ? "meal-calendar-day-active"
-                  : "meal-calendar-day"
-              }
-              onClick={handleSelectDay}
-              aria-hidden="true"
-            >
-              <div>{day}</div>
-              {caloriePerday[day] > 0 ? (
-                <div>{caloriePerday[day]}</div>
-              ) : (
-                <div className="meal-calendar-day-empty">-</div>
-              )}
-            </div>
-          ))}
+          {dayArray.map((day, i) => {
+            const included = monthsContainingActivity
+              .filter((m) => m.getMonth() === months.indexOf(selectedMonth))
+              .map((d) => d.getDate())
+              .includes(day);
+            return (
+              <div
+                key={i}
+                className={
+                  monthsContainingActivity
+                    .filter(
+                      (m) => m.getMonth() === months.indexOf(selectedMonth)
+                    )
+                    .map((d) => d.getDate())
+                    .includes(day)
+                    ? "meal-calendar-day-active"
+                    : "meal-calendar-day"
+                }
+                onClick={included ? handleSelectDay : null}
+                aria-hidden="true"
+              >
+                <div>{day}</div>
+                {caloriePerday[day] > 0 ? (
+                  <div>{caloriePerday[day]}</div>
+                ) : (
+                  <div className="meal-calendar-day-empty">-</div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
