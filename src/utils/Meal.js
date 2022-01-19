@@ -69,7 +69,7 @@ async function getDailyCalorieIntake(foodDiaryId, date) {
           new Date(dateObj.getFullYear(), dateObj.getMonth(), 0).getDate()
         ).fill(0);
         res.data.forEach((meal) => {
-          cals[dateObj.getDate()] += meal.calories;
+          cals[new Date(meal.time).getDate()] += meal.calories;
         });
       }
       return cals;
