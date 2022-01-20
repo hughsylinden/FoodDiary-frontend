@@ -77,8 +77,9 @@ function LandingPage() {
                 ))}
               </div>
             )}
+
             <button
-              className="landing-page__button"
+              className="primary-button "
               type="submit"
               onClick={viewNewDiaryInputs}
             >
