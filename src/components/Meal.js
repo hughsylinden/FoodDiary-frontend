@@ -11,7 +11,6 @@ function Meal({ name, calories, datetime }) {
       <div>{calories}</div>
       <div>{date}</div>
       <div>{time}</div>
-      <br />
     </div>
   );
 }

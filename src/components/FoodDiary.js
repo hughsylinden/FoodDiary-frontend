@@ -111,7 +111,7 @@ function FoodDiary() {
       <div className="fooddiary__meals">
         {!selectedDay && !showAddMealForm && (
           <div className="fooddiary__meals--title">
-            <p>SELECT A DATE</p>
+            <div>SELECT A DATE</div>
           </div>
         )}
         {showAddMealForm && (
@@ -139,7 +139,6 @@ function FoodDiary() {
               .reduce((total, amount) => total + amount)}
           </div>
         )} */}
-        <br />
         {selectedDay &&
           meals
             .filter((meal) => {

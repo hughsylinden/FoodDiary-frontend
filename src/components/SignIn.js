@@ -10,6 +10,7 @@ function SignIn() {
   const [fields, setFields] = useState(initialState.fields);
   const { setUser } = useContext(UserContext);
 
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   const handleFieldChange = (e) => {
@@ -17,9 +18,9 @@ function SignIn() {
     setFields({ ...fields, [e.target.name]: e.target.value });
   };
 
-  function handleLoginUser(e) {
+  async function handleLoginUser(e) {
     e.preventDefault();
-    signin(fields.username, fields.password).then((res) => {
+    /* await signin(fields.username, fields.password).then((res) => {
       if (res.username) {
         const loggedInUser = {
           id: res.id,
@@ -30,7 +31,9 @@ function SignIn() {
         localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
         navigate("/");
       }
-    });
+    }); */
+    await signin(fields.username, fields.password, setUser);
+    // navigate("/");
   }
 
   return (
